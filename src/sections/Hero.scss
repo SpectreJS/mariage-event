@@ -1,0 +1,142 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  color: $ivory;
+  background: $ink;
+
+  &__layer {
+    @include cover;
+    perspective: 1200px;
+    will-change: transform;
+  }
+
+  &__tilt {
+    @include cover;
+    transform: scale(1.06);
+    transform-style: preserve-3d;
+    will-change: transform;
+
+    img { @include cover; object-fit: cover; }
+  }
+
+  &__veil {
+    @include cover;
+    background:
+      linear-gradient(180deg, rgba($ink, 0.55) 0%, rgba($ink, 0) 28%),
+      linear-gradient(0deg, rgba($ink, 0.88) 0%, rgba($ink, 0.35) 45%, rgba($ink, 0.05) 75%),
+      radial-gradient(ellipse at 20% 80%, rgba($ink, 0.4), transparent 60%);
+  }
+
+  &__dust {
+    @include cover;
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding-bottom: clamp(5.5rem, 10vh, 8rem);
+    @include down($bp-sm) { padding-bottom: 2.5rem; }
+  }
+
+  &__eyebrow {
+    color: rgba($ivory, 0.75);
+    margin-bottom: 1.75rem;
+  }
+
+  &__title {
+    max-width: 15ch;
+    @include display(clamp(2.7rem, 8.4vw, 8.5rem));
+    font-weight: 300;
+
+    em { font-style: italic; color: $gold; }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem 4rem;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  &__text {
+    max-width: 30rem;
+    font-size: 0.98rem;
+    font-weight: 300;
+    color: rgba($ivory, 0.8);
+    @include down($bp-sm) { font-size: 0.9rem; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    @include down($bp-sm) {
+      width: 100%;
+      .mbtn { flex: 1 1 100%; }
+    }
+  }
+
+  &__aside {
+    position: absolute;
+    top: 50%;
+    right: $gutter;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%) rotate(180deg);
+    @include eyebrow;
+    font-size: 0.6rem;
+    color: rgba($ivory, 0.6);
+    @include down($bp-md) { display: none; }
+  }
+
+  &__aside-rule { width: 1px; height: 4rem; background: $gold; }
+
+  &__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    transform: translateX(-50%);
+    @include eyebrow;
+    font-size: 0.58rem;
+    color: rgba($ivory, 0.7);
+    @include down($bp-md) { display: none; }
+  }
+
+  &__scroll-line {
+    position: relative;
+    width: 1px;
+    height: 3.5rem;
+    overflow: hidden;
+    background: rgba($ivory, 0.2);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: $gold;
+      animation: scroll-line 2.4s $ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}

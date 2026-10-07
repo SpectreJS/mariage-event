@@ -1,0 +1,152 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.qmodal {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal + 1;
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($ink, 0.55);
+    backdrop-filter: blur(6px);
+  }
+
+  &__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(46rem, 100%);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2rem clamp(1.5rem, 4vw, 3.5rem) 3rem;
+    background: $ivory;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+
+  &__close {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba($ink, 0.2);
+    border-radius: 50%;
+    transition: transform 0.6s $ease-out, background-color 0.4s, color 0.4s;
+    @include hover { &:hover { transform: rotate(90deg); background: $ink; color: $ivory; } }
+  }
+
+  &__title {
+    @include display(clamp(2.4rem, 5vw, 3.8rem));
+    margin-bottom: 2.5rem;
+    em { font-style: italic; color: $gold-deep; }
+  }
+
+  &__success {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding-top: 4rem;
+    p { color: $muted; margin-top: -1rem; margin-bottom: 1rem; }
+  }
+
+  &__seal { font-size: 2rem; color: $gold; }
+}
+
+.qform {
+  display: grid;
+  gap: 1.75rem;
+
+  &__types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border: 0;
+
+    legend { @include eyebrow; font-size: 0.6rem; color: $muted; margin-bottom: 1rem; }
+  }
+
+  &__chip {
+    position: relative;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid rgba($ink, 0.2);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+
+    input { position: absolute; opacity: 0; pointer-events: none; }
+    &:focus-within { outline: 1px solid $gold; outline-offset: 3px; }
+    &.is-active { background: $ink; border-color: $ink; color: $ivory; }
+    @include hover { &:hover:not(.is-active) { border-color: $ink; } }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    @include down($bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &__field {
+    position: relative;
+    display: block;
+
+    input, textarea {
+      width: 100%;
+      padding: 1.5rem 0 0.6rem;
+      border: 0;
+      border-bottom: 1px solid rgba($ink, 0.22);
+      background: transparent;
+      outline: none;
+      font-size: 1rem;
+      border-radius: 0;
+      resize: vertical;
+      transition: border-color 0.4s;
+
+      &:focus { border-color: $gold; }
+      &:focus + span,
+      &:not(:placeholder-shown) + span { transform: translateY(-1.1rem) scale(0.78); color: $gold-deep; }
+      &:user-invalid { border-color: #a5523d; }
+    }
+
+    input[type='date'] + span { transform: translateY(-1.1rem) scale(0.78); }
+
+    span {
+      position: absolute;
+      left: 0;
+      top: 1.5rem;
+      font-size: 0.95rem;
+      color: $muted;
+      pointer-events: none;
+      transform-origin: left top;
+      transition: transform 0.5s $ease-out, color 0.4s;
+    }
+  }
+
+  &__error {
+    padding: 1rem 1.25rem;
+    border-left: 2px solid #a5523d;
+    background: rgba(#a5523d, 0.06);
+    font-size: 0.85rem;
+    color: #7d3a28;
+    a { text-decoration: underline; }
+  }
+
+  &__submit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+    small { font-size: 0.75rem; color: $muted; }
+    .mbtn[disabled] { opacity: 0.6; pointer-events: none; }
+  }
+}

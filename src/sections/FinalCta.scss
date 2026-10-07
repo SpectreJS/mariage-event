@@ -1,0 +1,53 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.fcta {
+  position: relative;
+  background: $ivory;
+
+  &__frame {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+    background: $ink;
+    color: $ivory;
+
+    > img { @include cover; object-fit: cover; will-change: transform; }
+  }
+
+  &__veil {
+    @include cover;
+    background:
+      radial-gradient(ellipse at center, rgba($ink, 0.35) 0%, rgba($ink, 0.78) 75%),
+      linear-gradient(0deg, rgba($ink, 0.6), transparent 40%);
+  }
+
+  &__dust { @include cover; pointer-events: none; }
+
+  &__content {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 2rem;
+    text-align: center;
+    padding-block: 8rem;
+  }
+
+  &__eyebrow { color: rgba($ivory, 0.7); &::before { display: none; } }
+
+  &__title {
+    max-width: 16ch;
+    @include display(clamp(3rem, 8vw, 8rem));
+    em { display: block; font-style: italic; color: $gold; }
+  }
+
+  &__sub {
+    max-width: 32rem;
+    font-weight: 300;
+    color: rgba($ivory, 0.8);
+  }
+
+  &__action { margin-top: 1rem; }
+}

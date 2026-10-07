@@ -1,0 +1,80 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.expertise {
+  background: $cream;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(3rem, 7vw, 9rem);
+    align-items: start;
+    @include down($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__visual {
+    @include up($bp-md) {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+
+  &__image { aspect-ratio: 4 / 5; @include up($bp-md) { height: calc(100svh - 11rem); aspect-ratio: auto; } }
+
+  &__caption {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: $muted;
+    .serif-italic { font-size: 1.1rem; color: $ink; }
+  }
+
+  &__lead {
+    max-width: 34rem;
+    margin-block: 2.5rem 4rem;
+    color: $muted;
+    font-weight: 300;
+  }
+
+  &__list { list-style: none; }
+}
+
+.craft {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem 1fr 1.3fr;
+  gap: 1rem 2rem;
+  align-items: baseline;
+  padding-block: 1.75rem;
+  transition: padding 0.8s $ease-out;
+  @include down($bp-sm) { grid-template-columns: 2.5rem 1fr; }
+
+  &__rule {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: rgba($ink, 0.18);
+    transform-origin: left;
+  }
+
+  &__num { font-family: $font-display; font-style: italic; color: $gold-deep; font-size: 1.05rem; }
+
+  &__title {
+    @include display(clamp(1.8rem, 2.8vw, 2.7rem));
+    transition: transform 0.8s $ease-out, color 0.6s;
+  }
+
+  &__text {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: $muted;
+    @include down($bp-sm) { grid-column: 2; }
+  }
+
+  &:last-child { border-bottom: 1px solid rgba($ink, 0.18); }
+
+  @include hover {
+    &:hover {
+      .craft__title { transform: translateX(12px); color: $gold-deep; font-style: italic; }
+    }
+  }
+}

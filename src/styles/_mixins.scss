@@ -1,0 +1,43 @@
+@use 'tokens' as *;
+
+@mixin up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin down($bp) {
+  @media (max-width: ($bp - 1px)) { @content; }
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) { @content; }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: 1680px;
+  margin-inline: auto;
+  padding-inline: $gutter;
+}
+
+@mixin eyebrow {
+  font-family: $font-body;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+@mixin display($size) {
+  font-family: $font-display;
+  font-weight: 300;
+  font-size: $size;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+@mixin cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,139 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.services {
+  background: $white;
+
+  &__head {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+    gap: 2rem $gutter;
+    margin-bottom: clamp(4rem, 8vw, 8rem);
+    @include down($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__intro {
+    max-width: 26rem;
+    justify-self: end;
+    color: $muted;
+    font-weight: 300;
+    @include down($bp-md) { justify-self: start; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(2rem, 5vw, 6rem) clamp(1.5rem, 5vw, 6rem);
+    @include up($bp-md) {
+      .service:nth-child(even) { margin-top: 10rem; }
+      .service:nth-child(3) { width: 82%; justify-self: end; }
+      .service:nth-child(2) { width: 88%; }
+    }
+    @include down($bp-md) { grid-template-columns: 1fr; }
+  }
+}
+
+.service {
+  position: relative;
+  will-change: transform;
+
+  &__hit {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    cursor: none;
+    @media (hover: none) { cursor: pointer; }
+  }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: $cream;
+
+    img {
+      @include cover;
+      object-fit: cover;
+      transition: transform 1.6s $ease-out;
+    }
+  }
+
+  &__shade {
+    @include cover;
+    background: linear-gradient(0deg, rgba($ink, 0.82) 0%, rgba($ink, 0.15) 50%, transparent 75%);
+    transition: opacity 0.9s $ease-out;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    color: $ivory;
+  }
+
+  &__index {
+    font-family: $font-display;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: $gold;
+  }
+
+  &__copy { transform: translateY(5.5rem); transition: transform 1s $ease-out; }
+
+  &__title {
+    @include display(clamp(2rem, 3.4vw, 3.4rem));
+    max-width: 12ch;
+  }
+
+  &__text {
+    max-width: 24rem;
+    margin-top: 1rem;
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: rgba($ivory, 0.82);
+    opacity: 0;
+    transition: opacity 0.8s $ease-out 0.05s;
+  }
+
+  &__more {
+    display: inline-flex;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+    @include eyebrow;
+    font-size: 0.62rem;
+    color: $gold;
+    opacity: 0;
+    transition: opacity 0.8s $ease-out 0.12s;
+    i { font-style: normal; transition: transform 0.6s $ease-out; }
+  }
+
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba($ink, 0.12);
+    margin-top: 1rem;
+    @include eyebrow;
+    font-size: 0.6rem;
+    color: $muted;
+  }
+
+  @include hover {
+    &:hover {
+      .service__media img { transform: scale(1.08); }
+      .service__copy { transform: translateY(0); }
+      .service__text, .service__more { opacity: 1; }
+      .service__more i { transform: translateX(6px); }
+    }
+  }
+
+  // Touch: everything visible, no hover-dependent content.
+  @media (hover: none) {
+    &__copy { transform: none; }
+    &__text, &__more { opacity: 1; }
+  }
+}

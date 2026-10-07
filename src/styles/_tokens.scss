@@ -1,0 +1,31 @@
+// Design tokens — Maison Aurèle
+$ivory: #f4efe6;
+$cream: #ebe3d5;
+$beige: #d9ccb7;
+$sand: #b8a68a;
+$ink: #14120f;
+$ink-soft: #2a2622;
+$muted: #6f665b;
+$gold: #c6a46a;
+$gold-deep: #9c7c45;
+$white: #fbf8f2;
+
+$font-display: 'Cormorant', 'Times New Roman', serif;
+$font-body: 'Manrope', system-ui, sans-serif;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+$gutter: clamp(1.25rem, 4vw, 4rem);
+$section-y: clamp(6rem, 14vw, 13rem);
+$header-h: 5.5rem;
+
+$bp-sm: 600px;
+$bp-md: 900px;
+$bp-lg: 1200px;
+$bp-xl: 1600px;
+
+$z-header: 50;
+$z-modal: 80;
+$z-transition: 100;
+$z-cursor: 110;

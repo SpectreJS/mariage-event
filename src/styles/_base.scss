@@ -1,0 +1,96 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  &.lenis, &.lenis body { height: auto; }
+  &.lenis.lenis-stopped { overflow: hidden; }
+}
+
+body {
+  background: $ivory;
+  color: $ink;
+  font-family: $font-body;
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+
+  &.is-loading { overflow: hidden; }
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, textarea, select { font: inherit; color: inherit; }
+
+::selection { background: $gold; color: $ink; }
+
+:focus-visible {
+  outline: 1px solid $gold;
+  outline-offset: 4px;
+}
+
+// Grain overlay — fixed, non-interactive
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: $z-cursor - 1;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container { @include container; }
+
+.eyebrow {
+  @include eyebrow;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: $muted;
+
+  &::before {
+    content: '';
+    width: 2.25rem;
+    height: 1px;
+    background: $gold;
+  }
+}
+
+.serif-italic { font-family: $font-display; font-style: italic; }
+.gold { color: $gold; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+// Image reveal helper (clip-path animated by GSAP)
+.media {
+  position: relative;
+  overflow: hidden;
+  background: $cream;
+
+  img {
+    @include cover;
+    object-fit: cover;
+    will-change: transform;
+  }
+}
+
+// SplitText masks
+.line-mask { overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

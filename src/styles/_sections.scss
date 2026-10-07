@@ -1,0 +1,20 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Shared section scaffolding
+.section {
+  position: relative;
+  padding-block: $section-y;
+}
+
+.section-heading {
+  display: grid;
+  gap: 1.75rem;
+
+  &__index { color: $gold; letter-spacing: 0.1em; }
+
+  &__title {
+    @include display(clamp(2.6rem, 6.4vw, 6.25rem));
+    em { font-style: italic; color: $gold-deep; }
+  }
+}

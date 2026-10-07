@@ -1,0 +1,129 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.pmodal {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: $ivory;
+  clip-path: inset(0px 0px 0px 0px);
+
+  &__top {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem $gutter;
+    color: $ivory;
+    mix-blend-mode: difference;
+  }
+
+  &__close {
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+    @include eyebrow;
+    span { font-size: 0.9rem; transition: transform 0.6s $ease-out; }
+    @include hover { &:hover span { transform: rotate(90deg); } }
+  }
+
+  &__hero {
+    position: relative;
+    height: 88svh;
+    min-height: 480px;
+    overflow: hidden;
+    img { @include cover; object-fit: cover; }
+  }
+
+  &__shade { @include cover; background: linear-gradient(0deg, rgba($ink, 0.75), transparent 55%); }
+
+  &__heading {
+    position: absolute;
+    left: $gutter;
+    right: $gutter;
+    bottom: clamp(2rem, 5vw, 4rem);
+    color: $ivory;
+  }
+
+  &__titlewrap { overflow: hidden; }
+  &__sub { font-family: $font-display; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.7rem); color: $gold; }
+  &__title { @include display(clamp(3rem, 9vw, 9rem)); padding-bottom: 0.08em; }
+
+  &__body {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 3rem $gutter;
+    padding-block: clamp(4rem, 8vw, 8rem);
+    @include down($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__facts {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+    div { padding-bottom: 1.25rem; border-bottom: 1px solid rgba($ink, 0.12); }
+    dt { @include eyebrow; font-size: 0.6rem; color: $muted; margin-bottom: 0.4rem; }
+    dd { font-family: $font-display; font-size: 1.5rem; }
+  }
+
+  &__story { display: grid; gap: 2.5rem; justify-items: start; }
+
+  &__text {
+    font-family: $font-display;
+    font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+    line-height: 1.25;
+  }
+
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    li {
+      padding: 0.55rem 1.1rem;
+      border: 1px solid rgba($ink, 0.18);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: $muted;
+    }
+  }
+
+  &__next {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    padding: clamp(4rem, 8vw, 7rem) $gutter;
+    overflow: hidden;
+    background: $ink;
+    color: $ivory;
+    text-align: left;
+    cursor: none;
+    @media (hover: none) { cursor: pointer; }
+
+    img {
+      position: absolute;
+      right: $gutter;
+      top: 50%;
+      width: clamp(8rem, 18vw, 16rem);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      transform: translateY(-50%) rotate(4deg) scale(0.9);
+      opacity: 0.85;
+      transition: transform 1s $ease-out;
+      @include down($bp-sm) { display: none; }
+    }
+
+    @include hover { &:hover img { transform: translateY(-50%) rotate(0) scale(1); } }
+  }
+
+  &__next-title {
+    @include display(clamp(2.4rem, 6vw, 5.5rem));
+    i { font-style: normal; color: $gold; }
+  }
+}

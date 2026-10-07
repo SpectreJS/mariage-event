@@ -1,0 +1,94 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: $ink;
+  color: $ivory;
+  padding-top: clamp(5rem, 10vw, 9rem);
+
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    border-bottom: 1px solid rgba($ivory, 0.12);
+  }
+
+  &__pitch {
+    max-width: 22ch;
+    @include display(clamp(2.2rem, 4.5vw, 4.2rem));
+    em { font-style: italic; color: $gold; }
+  }
+
+  &__cols {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
+    gap: 3rem $gutter;
+    padding-block: clamp(3rem, 6vw, 5rem);
+    @include down($bp-md) { grid-template-columns: 1fr 1fr; }
+    @include down($bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &__col {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba($ivory, 0.75);
+
+    h3 { @include eyebrow; font-size: 0.6rem; color: $gold; margin-bottom: 0.75rem; }
+    address { font-style: normal; }
+
+    a {
+      justify-self: start;
+      background-image: linear-gradient($gold, $gold);
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      background-size: 0 1px;
+      transition: background-size 0.6s $ease-out, color 0.4s;
+      @include hover { &:hover { background-size: 100% 1px; color: $ivory; } }
+    }
+  }
+
+  &__brand {
+    gap: 1.25rem;
+    .logo { color: $ivory; }
+    p { max-width: 18rem; }
+  }
+
+  &__giant {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    font-family: $font-display;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 27vw;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba($gold, 0.45);
+    padding-top: 0.05em;
+    user-select: none;
+
+    span { display: inline-block; }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid rgba($ivory, 0.12);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: rgba($ivory, 0.5);
+    button { color: inherit; transition: color 0.4s; @include hover { &:hover { color: $gold; } } }
+  }
+}

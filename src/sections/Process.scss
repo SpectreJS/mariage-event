@@ -1,0 +1,87 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.process {
+  background: $white;
+
+  &__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    list-style: none;
+    @include down($bp-md) { grid-template-columns: 1fr; gap: 3rem; padding-left: 2.5rem; }
+  }
+
+  &__thread {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0.3rem;
+    height: 1px;
+    background: rgba($ink, 0.12);
+
+    span { position: absolute; inset: 0; background: $gold; transform-origin: left; }
+
+    @include down($bp-md) {
+      left: 0.3rem;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      height: auto;
+      span { transform-origin: top; }
+    }
+  }
+}
+
+.step {
+  position: relative;
+  padding-top: 2.5rem;
+  @include down($bp-md) { padding-top: 0; }
+
+  &__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: $ivory;
+    border: 1px solid $gold;
+    @include down($bp-md) { left: -2.5rem; top: 0.6rem; }
+  }
+
+  &__index {
+    display: block;
+    font-family: $font-display;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: $gold-deep;
+  }
+
+  &__title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    @include display(clamp(2rem, 2.8vw, 2.8rem));
+  }
+
+  &__arrow {
+    font-style: normal;
+    font-size: 1.2rem;
+    color: $sand;
+    @include down($bp-md) { display: none; }
+  }
+
+  &__text {
+    max-width: 17rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: $muted;
+  }
+}

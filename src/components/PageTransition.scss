@@ -1,0 +1,19 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+.ptrans {
+  position: fixed;
+  inset: 0;
+  z-index: $z-transition;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: $cream;
+  visibility: hidden;
+
+  &__mark {
+    @include display(clamp(2rem, 5vw, 3.5rem));
+    font-style: italic;
+    color: $ink;
+  }
+}
